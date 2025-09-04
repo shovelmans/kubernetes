@@ -1,0 +1,10 @@
+apiVersion: v2
+name: cert-manager
+description: Cert-Manager gestionado por ArgoCD
+type: application
+version: 1.0.0
+
+dependencies:
+  - name: cert-manager
+    version: "1.15.3"   # versión estable actual
+    repository: "https://charts.jetstack.io"
