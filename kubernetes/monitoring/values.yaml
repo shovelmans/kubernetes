@@ -1,0 +1,27 @@
+grafana:
+  enabled: true
+  adminPassword: admin  # cámbialo en real
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - grafana.jorge.local
+    tls:
+      - hosts:
+          - grafana.jorge.local
+        secretName: grafana-tls
+    annotations:
+      cert-manager.io/issuer: "selfsigned-issuer"
+
+prometheus:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - prometheus.jorge.local
+    tls:
+      - hosts:
+          - prometheus.jorge.local
+        secretName: prometheus-tls
+    annotations:
+      cert-manager.io/issuer: "selfsigned-issuer"
