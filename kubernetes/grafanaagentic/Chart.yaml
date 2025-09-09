@@ -1,0 +1,11 @@
+apiVersion: v2
+name: kube-prometheus
+description: Helm chart para kube-prometheus-stack con ExternalSecrets
+type: application
+version: 0.1.0
+appVersion: 0.64.0   # versión del kube-prometheus-stack
+
+dependencies:
+  - name: kube-prometheus-stack
+    version: 61.2.0   # ejemplo, revisa con `helm search repo prometheus-community/kube-prometheus-stack`
+    repository: https://prometheus-community.github.io/helm-charts
