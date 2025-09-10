@@ -1,9 +1,0 @@
-apiVersion: v2
-name: kube-prometheus-custom
-description: Helm chart wrapper to deploy kube-prometheus-stack without CRDs or RBAC.
-type: application
-version: 0.1.0
-dependencies:
-  - name: kube-prometheus-stack
-    version: "65.2.0"   # ajusta si quieres otra versión estable
-    repository: https://prometheus-community.github.io/helm-charts

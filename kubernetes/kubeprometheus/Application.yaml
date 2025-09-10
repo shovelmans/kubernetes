@@ -1,25 +1,27 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: kube-prometheus2
+  name: kube-prometheus-stack
   namespace: argocd
 spec:
   project: default
   source:
-    repoURL: https://github.com/shovelmans/kubernetes.git
-    targetRevision: main
-    path: kubernetes/kubeprometheus   # <-- path corregido
+    repoURL: https://prometheus-community.github.io/helm-charts
+    chart: kube-prometheus-stack
+    targetRevision: 65.3.1    # pon aquí la versión estable del chart
     helm:
-      valueFiles:
-        - values.yaml
+      releaseName: kube-prometheus-stack
+      values: |
+        grafana:
+          service:
+            type: NodePort
+            nodePort: 32000
   destination:
     server: https://kubernetes.default.svc
-    namespace: monitoring   # <-- los recursos se crean en monitoring
+    namespace: monitoring
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-      - ServerSideApply=true
-      - RespectIgnoreDifferences=true
