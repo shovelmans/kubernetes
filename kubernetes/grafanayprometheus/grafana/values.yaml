@@ -9,16 +9,13 @@ persistence:
   enabled: true
   size: 5Gi
 
-grafana.ini:
-  paths:
-    data: /var/lib/grafana
-    logs: /var/log/grafana
-    plugins: /var/lib/grafana/plugins
-    provisioning: /etc/grafana/provisioning
-
-additionalDataSources:
-  - name: Prometheus
-    type: prometheus
-    url: http://prometheus-server.monitoring.svc.cluster.local
-    access: proxy
-    isDefault: true
+# Bloque correcto según el chart oficial
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://prometheus-server.monitoring.svc.cluster.local
+        access: proxy
+        isDefault: true
