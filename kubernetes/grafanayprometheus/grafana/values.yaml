@@ -9,7 +9,7 @@ persistence:
   enabled: true
   size: 5Gi
 
-# Provisiona Prometheus como datasource por defecto
+# ESTA es la forma recomendada por el chart
 datasources:
   datasources.yaml:
     apiVersion: 1
