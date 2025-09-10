@@ -1,13 +1,12 @@
-alertmanager:
-  enabled: true
-
-server:
-  service:
-    type: ClusterIP
-    port: 9090
-
 nodeExporter:
   enabled: true
+  hostNetwork: true
   service:
     port: 9200
-  hostPort: 9200
+  containerPort: 9200
+  extraArgs: []
+  extraHostPorts:
+    - name: metrics
+      containerPort: 9200
+      hostPort: 9200
+      protocol: TCP
