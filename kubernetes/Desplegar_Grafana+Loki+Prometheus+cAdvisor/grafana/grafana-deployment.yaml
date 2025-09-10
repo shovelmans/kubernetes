@@ -23,6 +23,10 @@ spec:
           env:
             - name: GF_AUTH_LDAP_ENABLED
               value: "false"   # 👈 LDAP deshabilitado
+            - name: GF_SECURITY_ADMIN_USER
+              value: "admin"   # 👈 usuario fijo
+            - name: GF_SECURITY_ADMIN_PASSWORD
+              value: "admin"   # 👈 contraseña fija
           volumeMounts:
             - name: storage
               mountPath: /var/lib/grafana
