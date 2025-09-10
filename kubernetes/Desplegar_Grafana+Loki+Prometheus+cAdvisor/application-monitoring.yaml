@@ -6,9 +6,11 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/shovelmans/kubernetes.git   # 👈 tu repo
-    targetRevision: main                                   # 👈 branch
-    path: kubernetes/Desplegar_Grafana+Loki+Prometheus+cAdvisor  # 👈 carpeta con manifests
+    repoURL: https://github.com/shovelmans/kubernetes.git
+    targetRevision: main
+    path: kubernetes/Desplegar_Grafana+Loki+Prometheus+cAdvisor
+    directory:
+      recurse: true   # 👈 Esto hace que ArgoCD entre en grafana/ y prometheus/
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
@@ -19,4 +21,3 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
-      - RespectIgnoreDifferences=true
