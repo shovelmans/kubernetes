@@ -1,0 +1,11 @@
+apiVersion: v2
+name: prometheus-custom
+description: Helm chart wrapper para desplegar Prometheus con mis valores
+type: application
+version: 0.1.0
+appVersion: "1.0"
+
+dependencies:
+  - name: prometheus
+    version: "25.27.*"   # versión actual en prometheus-community (puedes ajustar)
+    repository: "https://prometheus-community.github.io/helm-charts"
