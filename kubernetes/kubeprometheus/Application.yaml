@@ -8,13 +8,13 @@ spec:
   source:
     repoURL: https://github.com/shovelmans/kubernetes.git
     targetRevision: main
-    path: kubeprometheus
+    path: kubernetes/kubeprometheus   # <-- path corregido
     helm:
       valueFiles:
         - values.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: monitoring   # <-- aquí el cambio
+    namespace: monitoring   # <-- los recursos se crean en monitoring
   syncPolicy:
     automated:
       prune: true
