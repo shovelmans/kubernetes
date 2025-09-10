@@ -5,3 +5,9 @@ server:
   service:
     type: ClusterIP
     port: 9090
+
+nodeExporter:
+  enabled: true
+  service:
+    port: 9200
+  hostPort: 9200
