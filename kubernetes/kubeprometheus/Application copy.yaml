@@ -11,16 +11,12 @@ spec:
     targetRevision: 65.3.1
     helm:
       releaseName: kube-prometheus-stack
-      skipCrds: true
+      skipCrds: true    # 👈 muy importante
       values: |
         grafana:
           service:
             type: NodePort
-            nodePort: 32000   # 👈 acceso a Grafana
-        prometheus:
-          service:
-            type: NodePort
-            nodePort: 32001   # 👈 acceso a Prometheus
+            nodePort: 32000
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
