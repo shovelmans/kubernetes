@@ -14,3 +14,9 @@ data:
         access: proxy
         url: http://prometheus.monitoring.svc.cluster.local:9090
         isDefault: true
+
+      - name: NodeExporter
+        type: prometheus
+        access: proxy
+        url: http://node-exporter.monitoring.svc.cluster.local:9100
+        isDefault: false
