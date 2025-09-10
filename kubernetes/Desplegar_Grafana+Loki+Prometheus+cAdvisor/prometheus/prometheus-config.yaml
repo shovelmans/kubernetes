@@ -19,11 +19,15 @@ data:
 
       - job_name: 'node-exporter'
         kubernetes_sd_configs:
-          - role: endpoints
+          - role: pod
             namespaces:
               names:
                 - monitoring
         relabel_configs:
-          - source_labels: [__meta_kubernetes_service_name,__meta_kubernetes_endpoint_port_name]
+          - source_labels: [__meta_kubernetes_pod_label_app]
             action: keep
-            regex: node-exporter;metrics
+            regex: node-exporter
+          - source_labels: [__meta_kubernetes_pod_ip]
+            target_label: __address__
+            replacement: $1:9100
+
