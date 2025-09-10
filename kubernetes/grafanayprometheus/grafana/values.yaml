@@ -1,0 +1,20 @@
+adminUser: admin
+adminPassword: admin  # cámbialo después en un Secret
+
+service:
+  type: ClusterIP
+  port: 3000
+
+persistence:
+  enabled: true
+  size: 5Gi
+
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://prometheus-server.monitorizacion.svc.cluster.local
+        access: proxy
+        isDefault: true
