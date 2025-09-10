@@ -9,7 +9,7 @@ persistence:
   enabled: true
   size: 5Gi
 
-# Bloque correcto según el chart oficial
+# Provisiona Prometheus como datasource por defecto
 datasources:
   datasources.yaml:
     apiVersion: 1
