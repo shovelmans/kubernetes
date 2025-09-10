@@ -24,6 +24,6 @@ data:
               names:
                 - monitoring
         relabel_configs:
-          - source_labels: [__meta_kubernetes_service_name]
+          - source_labels: [__meta_kubernetes_service_name,__meta_kubernetes_endpoint_port_name]
             action: keep
-            regex: node-exporter
+            regex: node-exporter;metrics
