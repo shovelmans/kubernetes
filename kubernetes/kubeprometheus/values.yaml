@@ -1,10 +1,10 @@
 grafana:
   service:
-    type: ClusterIP   # 👈 ya no necesitas NodePort con ingress
+    type: ClusterIP
   persistence:
     enabled: true
     type: pvc
-    existingClaim: grafana-pvc
+    existingClaim: grafana-pvc   # PVC ya existente
 
   ingress:
     enabled: true
