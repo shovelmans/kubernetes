@@ -4,7 +4,7 @@ grafana:
   persistence:
     enabled: true
     type: pvc
-    existingClaim: grafana-pvc   # PVC ya existente
+    existingClaim: grafana-pvc
 
   ingress:
     enabled: true

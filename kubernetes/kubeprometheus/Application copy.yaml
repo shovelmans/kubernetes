@@ -15,26 +15,25 @@ spec:
       values: |
         grafana:
           service:
-            type: NodePort
-            nodePort: 32000
+            type: ClusterIP
           persistence:
             enabled: true
-            storageClassName: do-block-storage   # 👈 StorageClass de DigitalOcean
-            accessModes:
-              - ReadWriteOnce
-            size: 10Gi
+            type: pvc
+            existingClaim: grafana-pvc
+          ingress:
+            enabled: true
+            ingressClassName: nginx
+            hosts:
+              - grafana.jorge.local
 
         prometheus:
           service:
             type: ClusterIP
-          additionalService:
+          ingress:
             enabled: true
-            type: NodePort
-            ports:
-              - name: http-web
-                port: 9090
-                targetPort: 9090
-                nodePort: 32001
+            ingressClassName: nginx
+            hosts:
+              - prometheus.jorge.local
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
