@@ -6,14 +6,34 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/shovelmans/kubernetes.git   # 👈 tu repo Git
-    targetRevision: main
-    path: kubernetes/kubeprometheus                        # 👈 carpeta donde tienes Application.yaml y values.yaml
+    repoURL: https://prometheus-community.github.io/helm-charts
+    chart: kube-prometheus-stack
+    targetRevision: 65.3.1
     helm:
       releaseName: kube-prometheus-stack
       skipCrds: true
-      valueFiles:
-        - values.yaml                                      # 👈 usa tu values.yaml
+      values: |
+        grafana:
+          service:
+            type: ClusterIP
+          persistence:
+            enabled: true
+            type: pvc
+            existingClaim: grafana-pvc
+          ingress:
+            enabled: true
+            ingressClassName: nginx
+            hosts:
+              - grafana.jorge.local
+
+        prometheus:
+          service:
+            type: ClusterIP
+          ingress:
+            enabled: true
+            ingressClassName: nginx
+            hosts:
+              - prometheus.jorge.local
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
