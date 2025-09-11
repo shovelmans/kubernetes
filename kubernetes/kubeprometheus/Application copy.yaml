@@ -21,7 +21,6 @@ spec:
 
           service:
             type: ClusterIP
-
           persistence:
             enabled: true
             type: pvc
@@ -33,12 +32,7 @@ spec:
             hosts:
               - grafana.jorge.local
 
-          # 👉 Forzar a usar tu secret
-          admin:
-            existingSecret: prometheus-grafana
-            userKey: admin-user
-            passwordKey: admin-password
-
+          # Configuración extra para MongoDB plugin
           grafana.ini:
             plugins:
               allow_loading_unsigned_plugins: haohanyang-mongodb-datasource
@@ -65,10 +59,25 @@ spec:
                     mv /var/lib/grafana/plugins/haohanyang-mongodb-datasource-0.3.2 \
                        /var/lib/grafana/plugins/haohanyang-mongodb-datasource
                   fi
-                  chown -R 472:472 /var/lib/grafana/plugins
+                  chown -R 472:472 /var/lib/grafana/plugins                
               volumeMounts:
                 - name: storage
                   mountPath: /var/lib/grafana
+
+          # Montamos el secreto como volumen y lo pasamos como env
+          extraVolumes:
+            - name: grafana-admin-secret
+              secret:
+                secretName: prometheus-grafana
+          extraVolumeMounts:
+            - name: grafana-admin-secret
+              mountPath: /etc/secrets
+              readOnly: true
+          extraEnv:
+            - name: GF_SECURITY_ADMIN_USER_FILE
+              value: /etc/secrets/admin-user
+            - name: GF_SECURITY_ADMIN_PASSWORD_FILE
+              value: /etc/secrets/admin-password
 
         prometheus:
           service:

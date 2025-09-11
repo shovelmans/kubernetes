@@ -1,0 +1,11 @@
+server:
+  ha:
+    enabled: false
+  dataStorage:
+    enabled: true
+    size: 1Gi
+  service:
+    type: NodePort
+    nodePort: 32002
+ui:
+  enabled: true

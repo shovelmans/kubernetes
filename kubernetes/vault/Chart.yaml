@@ -1,0 +1,10 @@
+apiVersion: v2
+name: vault-wrapper
+description: Helm chart wrapper para desplegar Vault con mis valores
+type: application
+version: 0.1.0
+
+dependencies:
+  - name: vault
+    version: 0.28.0   # 👈 versión estable del chart de Vault
+    repository: https://helm.releases.hashicorp.com
