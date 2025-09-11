@@ -5,22 +5,35 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  sources:
-    # 📌 Source 1: el chart oficial desde el repo de Helm
-    - repoURL: https://prometheus-community.github.io/helm-charts
-      chart: kube-prometheus-stack
-      targetRevision: 65.3.1
-      helm:
-        releaseName: kube-prometheus-stack
-        skipCrds: true
+  source:
+    repoURL: https://prometheus-community.github.io/helm-charts
+    chart: kube-prometheus-stack
+    targetRevision: 65.3.1
+    helm:
+      releaseName: kube-prometheus-stack
+      skipCrds: true
+      values: |
+        grafana:
+          service:
+            type: ClusterIP
+          persistence:
+            enabled: true
+            type: pvc
+            existingClaim: grafana-pvc
+          ingress:
+            enabled: true
+            ingressClassName: nginx
+            hosts:
+              - grafana.jorge.local
 
-    # 📌 Source 2: tu repo Git con el values.yaml
-    - repoURL: https://github.com/shovelmans/kubernetes.git
-      targetRevision: main
-      path: kubernetes/kubeprometheus
-      helm:
-        valueFiles:
-          - values.yaml
+        prometheus:
+          service:
+            type: ClusterIP
+          ingress:
+            enabled: true
+            ingressClassName: nginx
+            hosts:
+              - prometheus.jorge.local
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
