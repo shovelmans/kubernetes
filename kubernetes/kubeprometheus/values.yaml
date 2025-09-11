@@ -9,11 +9,8 @@ grafana:
   ingress:
     enabled: true
     ingressClassName: nginx
-    annotations:
-      kubernetes.io/ingress.class: nginx
     hosts:
       - grafana.jorge.local
-    tls: []
 
 prometheus:
   service:
@@ -21,8 +18,5 @@ prometheus:
   ingress:
     enabled: true
     ingressClassName: nginx
-    annotations:
-      kubernetes.io/ingress.class: nginx
     hosts:
       - prometheus.jorge.local
-    tls: []
