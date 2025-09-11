@@ -11,19 +11,34 @@ spec:
     targetRevision: 65.3.1
     helm:
       releaseName: kube-prometheus-stack
-      skipCrds: true    # 👈 muy importante
+      skipCrds: true
       values: |
         grafana:
           service:
             type: NodePort
             nodePort: 32000
+          persistence:
+            enabled: true
+            storageClassName: do-block-storage   # 👈 StorageClass de DigitalOcean
+            accessModes:
+              - ReadWriteOnce
+            size: 10Gi
+
+        prometheus:
+          service:
+            type: ClusterIP
+          additionalService:
+            enabled: true
+            type: NodePort
+            ports:
+              - name: http-web
+                port: 9090
+                targetPort: 9090
+                nodePort: 32001
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
