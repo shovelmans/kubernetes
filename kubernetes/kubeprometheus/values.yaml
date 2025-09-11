@@ -5,7 +5,7 @@ grafana:
   persistence:
     enabled: true
     type: pvc
-    existingClaim: grafana-pvc
+    existingClaim: grafana-pvc   # PVC que ya tienes creado
 
 prometheus:
   service:

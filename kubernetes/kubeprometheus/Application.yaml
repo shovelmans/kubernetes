@@ -13,7 +13,7 @@ spec:
       releaseName: kube-prometheus-stack
       skipCrds: true
       valueFiles:
-        - values.yaml
+        - https://raw.githubusercontent.com/shovelmans/kubernetes/main/kubernetes/kubeprometheus/values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
