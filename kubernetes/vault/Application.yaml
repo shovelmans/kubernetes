@@ -8,10 +8,10 @@ spec:
   source:
     repoURL: https://github.com/shovelmans/kubernetes.git
     targetRevision: main
-    path: vault
+    path: kubernetes/vault
   destination:
     server: https://kubernetes.default.svc
-    namespace: kubernetes/vault
+    namespace: vault
   syncPolicy:
     automated:
       prune: true
