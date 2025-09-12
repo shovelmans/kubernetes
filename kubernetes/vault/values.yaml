@@ -2,11 +2,11 @@ server:
   dev:
     enabled: true
 
-  # Habilita la creación de un recurso Ingress para el API y la UI
+  # Ingress para exponer Vault (API y UI) a través de tu NGINX
   ingress:
     enabled: true
-    ingressClassName: nginx        # usa tu controlador nginx
-    activeService: true            # true = apunta a vault-active (en HA) / vault en dev
+    ingressClassName: nginx
+    activeService: true      # se usa vault-active en HA, y vault en modo dev
     hosts:
       - host: vault.jorge.local
         paths:
