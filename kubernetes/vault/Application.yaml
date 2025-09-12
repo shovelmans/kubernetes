@@ -11,7 +11,7 @@ spec:
     path: vault
   destination:
     server: https://kubernetes.default.svc
-    namespace: vault
+    namespace: kubernetes/vault
   syncPolicy:
     automated:
       prune: true
