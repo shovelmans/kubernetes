@@ -1,18 +1,40 @@
 server:
+  # Usamos servidor real, no dev
   dev:
-    enabled: true
+    enabled: false
 
-  # Ingress para exponer Vault (API y UI) a través de tu NGINX
+  image:
+    repository: docker.io/hashicorp/vault
+    tag: "1.13.3"
+
+  # Activamos almacenamiento persistente
+  dataStorage:
+    enabled: true
+    size: 10Gi
+    storageClass: do-block-storage   # en DigitalOcean suele ser esta
+    accessMode: ReadWriteOnce
+
+  # Ingress para exponer Vault
   ingress:
     enabled: true
     ingressClassName: nginx
-    activeService: true      # se usa vault-active en HA, y vault en modo dev
+    activeService: true
     hosts:
       - host: vault.jorge.local
         paths:
           - path: /
             pathType: Prefix
 
-ui:
-  enabled: true
-  serviceType: ClusterIP
+  # UI habilitada
+  ui:
+    enabled: true
+    serviceType: ClusterIP
+
+injector:
+  image:
+    repository: docker.io/hashicorp/vault-k8s
+    tag: "1.3.1"
+
+  agentImage:
+    repository: docker.io/hashicorp/vault
+    tag: "1.13.3"
