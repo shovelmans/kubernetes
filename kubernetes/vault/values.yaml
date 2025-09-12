@@ -2,14 +2,17 @@ server:
   dev:
     enabled: true
 
-ui:
-  enabled: true
-  serviceType: ClusterIP
+  # Habilita la creación de un recurso Ingress para el API y la UI
   ingress:
     enabled: true
-    ingressClassName: nginx
+    ingressClassName: nginx        # usa tu controlador nginx
+    activeService: true            # true = apunta a vault-active (en HA) / vault en dev
     hosts:
       - host: vault.jorge.local
         paths:
           - path: /
             pathType: Prefix
+
+ui:
+  enabled: true
+  serviceType: ClusterIP
