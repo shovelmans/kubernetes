@@ -4,4 +4,4 @@ controller:
   ingressClassResource:
     name: nginx
     enabled: true
-    default: true   # este será el controlador por defecto
+    default: true
