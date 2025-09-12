@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/<tuusuario>/<turepo>.git
+    repoURL: https://github.com/shovelmans/kubernetes.git
     targetRevision: main
     path: kubernetes/vault
     helm:
