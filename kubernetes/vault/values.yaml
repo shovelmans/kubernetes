@@ -1,11 +1,20 @@
 server:
-  ha:
-    enabled: false
-  dataStorage:
+  dev:
     enabled: true
-    size: 1Gi
+  dataStorage:
+    enabled: false
+
   service:
-    type: NodePort
-    nodePort: 32002
+    type: ClusterIP
+
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - host: vault.jorge.local
+        paths:
+          - path: /
+            pathType: Prefix
+
 ui:
   enabled: true
