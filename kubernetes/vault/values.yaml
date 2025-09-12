@@ -1,8 +1,9 @@
 server:
   dev:
     enabled: true
-  dataStorage:
-    enabled: false
+
+ui:
+  enabled: true
 
   service:
     type: ClusterIP
@@ -15,6 +16,3 @@ server:
         paths:
           - path: /
             pathType: Prefix
-
-ui:
-  enabled: true
