@@ -5,11 +5,19 @@ controller:
 
   persistence:
     enabled: true
-    size: 20Gi
+    size: 5Gi
     storageClass: "rook-ceph-block"
 
   service:
     type: NodePort
     nodePort: 32000
 
-  jenkinsUrl: "http://206.189.179.134:32000"
+  jenkinsUrl: "http://<IP-del-nodo>:32000"
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 300m
+      memory: 768Mi
