@@ -1,7 +1,7 @@
 apiVersion: v2
-name: jenkins
+name: jenkins-gitops
 version: 0.1.0
 dependencies:
   - name: jenkins
-    version: 5.5.7
+    version: 13.6.17   # <-- pon aquí la versión válida que te salga
     repository: https://charts.bitnami.com/bitnami
