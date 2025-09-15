@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: monitoring
+  labels:
+    app: grafana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      # 👇 InitContainer para instalar el plugin de MongoDB
+      initContainers:
+        - name: install-mongodb-community-plugin
+          image: alpine:3.20
+          securityContext:
+            runAsUser: 0
+            runAsNonRoot: false
+          command: ["/bin/sh","-lc"]
+          args:
+            - |
+              set -euo pipefail
+              apk add --no-cache curl unzip ca-certificates
+              update-ca-certificates
+              mkdir -p /var/lib/grafana/plugins
+              rm -rf /var/lib/grafana/plugins/haohanyang-mongodb-datasource \
+                     /var/lib/grafana/plugins/haohanyang-mongodb-datasource-*
+              URL="https://github.com/haohanyang/mongodb-datasource/releases/download/v0.3.2/haohanyang-mongodb-datasource-0.3.2.zip"
+              curl -fsSL "$URL" -o /tmp/mongodb-ds.zip
+              unzip -q /tmp/mongodb-ds.zip -d /var/lib/grafana/plugins/
+              if [ -d /var/lib/grafana/plugins/haohanyang-mongodb-datasource-0.3.2 ]; then
+                mv /var/lib/grafana/plugins/haohanyang-mongodb-datasource-0.3.2 \
+                   /var/lib/grafana/plugins/haohanyang-mongodb-datasource
+              fi
+              chown -R 472:472 /var/lib/grafana/plugins
+          volumeMounts:
+            - name: storage
+              mountPath: /var/lib/grafana
+
+      containers:
+        - name: grafana
+          image: grafana/grafana:10.2.3
+          ports:
+            - containerPort: 3000
+          env:
+            - name: GF_SECURITY_ADMIN_USER
+              value: "admin"
+            - name: GF_SECURITY_ADMIN_PASSWORD
+              value: "admin"
+          volumeMounts:
+            - name: storage
+              mountPath: /var/lib/grafana
+            - name: datasources
+              mountPath: /etc/grafana/provisioning/datasources
+            - name: config
+              mountPath: /etc/grafana/grafana.ini
+              subPath: grafana.ini
+          securityContext:
+            runAsUser: 0
+
+      volumes:
+        - name: storage
+          persistentVolumeClaim:
+            claimName: grafana-pvc
+        - name: datasources
+          configMap:
+            name: grafana-datasources
+        - name: config
+          configMap:
+            name: grafana-config

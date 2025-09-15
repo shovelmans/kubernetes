@@ -1,0 +1,6 @@
+installCRDs: true
+
+# Para no pedir certificados de Let's Encrypt todavía
+global:
+  leaderElection:
+    namespace: cert-manager

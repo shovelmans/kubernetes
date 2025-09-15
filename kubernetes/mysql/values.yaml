@@ -1,0 +1,12 @@
+auth:
+  database: "metricas_kpi_ad"
+  username: "metricas_user"
+  password: "UserPassw0rd!"
+ 
+primary:
+  persistence:
+    enabled: true
+    size: 10Gi
+ 
+service:
+  type: ClusterIP
