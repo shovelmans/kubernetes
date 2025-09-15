@@ -2,16 +2,19 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: jenkins
-  namespace: argocd   # donde corre ArgoCD
+  namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/shovelmans/kubernetes.git
     targetRevision: main
-    path: kubernetes/jenkins   # <--- apunta a la carpeta del chart
+    path: kubernetes/jenkins
+    helm:
+      valueFiles:
+        - values.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: jenkins         # <--- namespace donde quieres Jenkins
+    namespace: jenkins
   syncPolicy:
     automated:
       prune: true
