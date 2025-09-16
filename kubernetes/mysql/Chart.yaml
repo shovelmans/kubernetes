@@ -1,0 +1,8 @@
+apiVersion: v2
+name: mysql-app
+version: 0.1.0
+
+dependencies:
+  - name: mysql
+    version: 11.1.9   # última estable de Bitnami, ajústala si hay más nueva
+    repository: https://charts.bitnami.com/bitnami
