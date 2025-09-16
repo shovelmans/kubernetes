@@ -9,7 +9,7 @@ mysql:
       enabled: true
       existingClaim: mysql-pvc
 
-image:
-  repository: docker.io/bitnami/mysql
-  tag: "9.4.0-debian-12-r0"   # ⚠️ este es el tag publicado por Bitnami
-  pullPolicy: IfNotPresent
+  image:
+    repository: docker.io/bitnami/mysql
+    tag: "9.4.0-debian-12-r0"
+    pullPolicy: IfNotPresent
