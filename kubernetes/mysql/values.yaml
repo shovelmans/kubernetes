@@ -1,12 +1,7 @@
 auth:
-  database: "metricas_kpi_ad"
-  username: "metricas_user"
-  password: "UserPassw0rd!"
- 
+  existingSecret: mysql-root-secret
+
 primary:
   persistence:
     enabled: true
-    size: 10Gi
- 
-service:
-  type: ClusterIP
+    existingClaim: mysql-pvc
