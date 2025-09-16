@@ -1,7 +1,10 @@
-auth:
-  existingSecret: mysql-root-secret
+mysql:
+  fullnameOverride: mysql
 
-primary:
-  persistence:
-    enabled: true
-    existingClaim: mysql-pvc
+  auth:
+    existingSecret: admin-mysql-secret
+
+  primary:
+    persistence:
+      enabled: true
+      existingClaim: mysql-pvc

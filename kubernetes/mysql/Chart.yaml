@@ -1,8 +1,9 @@
 apiVersion: v2
-name: mysql-app
+name: mysql-wrapper
 version: 0.1.0
+description: Wrapper Helm chart to deploy Bitnami MySQL with Secret + PVC
 
 dependencies:
   - name: mysql
-    version: 11.1.9   # última estable de Bitnami, ajústala si hay más nueva
+    version: 11.1.9
     repository: https://charts.bitnami.com/bitnami

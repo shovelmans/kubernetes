@@ -6,12 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/shovelmans/kubernetes.git   # tu repo
+    repoURL: https://github.com/shovelmans/kubernetes.git
     targetRevision: main
     path: kubernetes/mysql
-    helm:
-      valueFiles:
-        - values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: mysql
