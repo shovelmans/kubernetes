@@ -5,5 +5,5 @@ description: Wrapper Helm chart to deploy Bitnami MySQL with Secret + PVC
 
 dependencies:
   - name: mysql
-    version: 11.1.9
+    version: 14.0.3
     repository: https://charts.bitnami.com/bitnami

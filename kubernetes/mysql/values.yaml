@@ -8,8 +8,3 @@ mysql:
     persistence:
       enabled: true
       existingClaim: mysql-pvc
-
-  image:
-    repository: docker.io/bitnami/mysql
-    tag: "9.4.0"
-    pullPolicy: IfNotPresent
