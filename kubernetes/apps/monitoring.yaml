@@ -2,19 +2,19 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: kube-prometheus-stack
-  namespace: argocd        # ArgoCD siempre va en su ns
+  namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/shovelmans/kubernetes.git
     targetRevision: main
-    path: monitorizacion   # carpeta donde está tu Chart.yaml
+    path: kubernetes/monitorizacion   # 👈 usa esta ruta
     helm:
       valueFiles:
         - values.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: monitoring  # 👈 aquí irá todo
+    namespace: monitoring
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
