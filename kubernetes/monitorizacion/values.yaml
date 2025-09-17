@@ -1,0 +1,44 @@
+# General
+global:
+  rbac:
+    create: true
+
+# Prometheus
+prometheus:
+  prometheusSpec:
+    serviceMonitorSelector: {}
+    podMonitorSelector: {}
+    retention: 10d
+    storageSpec:
+      volumeClaimTemplate:   # Aquí NO definimos el PVC porque lo llevamos separado
+        spec:
+          storageClassName: ""  # Lo dejamos vacío para usar el pvc.yaml externo
+          resources:
+            requests:
+              storage: 10Gi
+
+# Grafana
+grafana:
+  enabled: true
+  admin:
+    existingSecret: grafana-admin-secret   # Secret separado
+    userKey: admin-user
+    passwordKey: admin-password
+  persistence:
+    enabled: true
+    existingClaim: grafana-pvc             # PVC separado
+  service:
+    type: ClusterIP
+    port: 80
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - grafana.jorge.local
+    tls: []   # puedes configurar TLS si usas cert-manager
+
+# Alertmanager
+alertmanager:
+  enabled: true
+  alertmanagerSpec:
+    replicas: 1
