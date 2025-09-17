@@ -9,4 +9,4 @@ spec:
   resources:
     requests:
       storage: 5Gi
-  storageClassName: rook-ceph-block   # Ajusta a tu cluster
+  storageClassName: do-block-storage-retain
