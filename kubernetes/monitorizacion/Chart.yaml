@@ -1,9 +1,9 @@
 apiVersion: v2
 name: monitorizacion
-description: Chart wrapper para desplegar kube-prometheus-stack con mis valores
+description: Wrapper de kube-prometheus-stack con mis valores
 type: application
 version: 0.1.0
 dependencies:
   - name: kube-prometheus-stack
-    version: 65.*
+    version: 65.*                # misma serie que en ArtifactHub
     repository: https://prometheus-community.github.io/helm-charts

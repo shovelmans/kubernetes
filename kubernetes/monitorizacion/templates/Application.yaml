@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/shovelmans/kubernetes.git
     targetRevision: main
-    path: kubernetes/monitorizacion
+    path: kubernetes/monitorizacion     # ← apunta a tu chart con values.yaml dentro
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
@@ -21,12 +21,3 @@ spec:
     automated:
       prune: true
       selfHeal: true
-  ignoreDifferences:
-    - group: admissionregistration.k8s.io
-      kind: MutatingWebhookConfiguration
-      jqPathExpressions:
-        - .webhooks[]?.clientConfig.caBundle
-    - group: admissionregistration.k8s.io
-      kind: ValidatingWebhookConfiguration
-      jqPathExpressions:
-        - .webhooks[]?.clientConfig.caBundle

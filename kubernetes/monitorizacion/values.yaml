@@ -1,17 +1,11 @@
 crds:
   enabled: false
 
-# Desactivamos componentes que en DOKS no sirven
-kubeEtcd:
-  enabled: false
-kubeControllerManager:
-  enabled: false
-kubeScheduler:
-  enabled: false
-kubeProxy:
-  enabled: false
+kubeEtcd: { enabled: false }
+kubeControllerManager: { enabled: false }
+kubeScheduler: { enabled: false }
+kubeProxy: { enabled: false }
 
-# Prometheus
 prometheus:
   service:
     type: NodePort
@@ -20,12 +14,8 @@ prometheus:
     retention: 12h
     scrapeInterval: 60s
     resources:
-      requests:
-        cpu: 200m
-        memory: 400Mi
-      limits:
-        cpu: 500m
-        memory: 800Mi
+      requests: { cpu: 200m, memory: 400Mi }
+      limits:   { cpu: 500m, memory: 800Mi }
     storageSpec:
       volumeClaimTemplate:
         spec:
@@ -35,7 +25,6 @@ prometheus:
             requests:
               storage: 5Gi
 
-# Grafana
 grafana:
   admin:
     existingSecret: grafana-admin-secret
@@ -48,27 +37,17 @@ grafana:
     type: NodePort
     nodePort: 32081
   resources:
-    requests:
-      cpu: 100m
-      memory: 150Mi
-    limits:
-      cpu: 300m
-      memory: 300Mi
+    requests: { cpu: 100m, memory: 150Mi }
+    limits:   { cpu: 300m, memory: 300Mi }
 
-# Alertmanager (ligero)
 alertmanager:
   alertmanagerSpec:
     resources:
-      requests:
-        cpu: 50m
-        memory: 100Mi
-      limits:
-        cpu: 200m
-        memory: 200Mi
+      requests: { cpu: 50m, memory: 100Mi }
+      limits:   { cpu: 200m, memory: 200Mi }
   service:
     type: ClusterIP
 
-# 🔧 Desactivar completamente los admission webhooks del Prometheus Operator
 prometheusOperator:
   admissionWebhooks:
     enabled: false
