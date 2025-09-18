@@ -17,6 +17,16 @@ spec:
       - CreateNamespace=true
       - Replace=true
       - ServerSideApply=true
+      - PruneLast=true
     automated:
       prune: true
       selfHeal: true
+  ignoreDifferences:
+    - group: admissionregistration.k8s.io
+      kind: MutatingWebhookConfiguration
+      jqPathExpressions:
+        - .webhooks[]?.clientConfig.caBundle
+    - group: admissionregistration.k8s.io
+      kind: ValidatingWebhookConfiguration
+      jqPathExpressions:
+        - .webhooks[]?.clientConfig.caBundle
