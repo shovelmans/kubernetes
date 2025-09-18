@@ -67,3 +67,7 @@ alertmanager:
         memory: 200Mi
   service:
     type: ClusterIP
+
+# 🔧 Desactivar admission webhook (evita errores de RBAC duplicados)
+admissionWebhooks:
+  enabled: false
