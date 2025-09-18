@@ -1,21 +1,41 @@
-adminUser: admin
-adminPassword: admin123
+grafana:
+  adminUser: admin
+  adminPassword: admin123  # cámbiala o usa un Secret existente
 
-service:
-  type: NodePort
-  nodePort: 32000
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 3000
+  # Para exponer por NodePort, descomenta:
+  #  type: NodePort
+  #  nodePort: 32000
 
-persistence:
-  enabled: true
-  storageClassName: do-block-storage
-  size: 2Gi
+  # Provisioning del datasource Prometheus
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+        - name: Prometheus
+          type: prometheus
+          access: proxy
+          url: http://prometheus-server.monitoring.svc.cluster.local
+          isDefault: true
 
-datasources:
-  datasources.yaml:
-    apiVersion: 1
+  # Sidecar para detectar dashboards/datasources adicionales vía ConfigMaps/Secrets (opcional)
+  sidecar:
     datasources:
-      - name: Prometheus
-        type: prometheus
-        access: proxy
-        url: http://prometheus-server.monitoring.svc.cluster.local
-        isDefault: true
+      enabled: true
+      label: grafana_datasource
+      searchNamespace: ALL
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
+      searchNamespace: ALL
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 300m
+      memory: 512Mi

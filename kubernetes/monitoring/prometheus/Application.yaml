@@ -9,12 +9,16 @@ spec:
     repoURL: https://github.com/shovelmans/kubernetes.git
     targetRevision: main
     path: kubernetes/monitoring/prometheus
+    helm:
+      releaseName: prometheus
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
   syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      # Si ArgoCD no resuelve dependencias Helm en tu entorno,
+      # opciona por “vendorizar” /charts o activa Helm deps (ver notas abajo).

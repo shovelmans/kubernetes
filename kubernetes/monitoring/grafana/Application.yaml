@@ -9,12 +9,14 @@ spec:
     repoURL: https://github.com/shovelmans/kubernetes.git
     targetRevision: main
     path: kubernetes/monitoring/grafana
+    helm:
+      releaseName: grafana
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
   syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

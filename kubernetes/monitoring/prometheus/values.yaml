@@ -1,26 +1,25 @@
-server:
-  enabled: true
-  service:
-    type: NodePort
-    nodePort: 32090
-  persistentVolume:
-    enabled: true
-    storageClass: do-block-storage
-    size: 5Gi
-  retention: 7d
-  resources:
-    requests:
-      cpu: 200m
-      memory: 400Mi
-    limits:
-      cpu: 500m
-      memory: 800Mi
+# Valores del subchart prometheus
+prometheus:
+  server:
+    retention: "12h"
+    service:
+      type: ClusterIP
+    resources:
+      requests:
+        cpu: 200m
+        memory: 400Mi
+      limits:
+        cpu: 500m
+        memory: 800Mi
 
-alertmanager:
-  enabled: false
-pushgateway:
-  enabled: false
-kubeStateMetrics:
-  enabled: false
-nodeExporter:
-  enabled: false
+  alertmanager:
+    enabled: false
+
+  pushgateway:
+    enabled: false
+
+  kubeStateMetrics:
+    enabled: false
+
+  nodeExporter:
+    enabled: false
