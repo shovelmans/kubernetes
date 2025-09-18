@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/shovelmans/kubernetes.git
     targetRevision: main
-    path: monitorizacion
+    path: kubernetes/monitorizacion
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
@@ -20,4 +20,3 @@ spec:
     automated:
       prune: true
       selfHeal: true
-#d
