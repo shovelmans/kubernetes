@@ -6,11 +6,30 @@ grafana:
     nodePort: 32000
 
 prometheus:
+  enabled: true
   service:
     type: NodePort
     nodePort: 32001
+  prometheusSpec:
+    retention: 12h
+    resources:
+      requests:
+        cpu: 200m
+        memory: 400Mi
+      limits:
+        cpu: 500m
+        memory: 800Mi
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: do-block-storage   # cámbiala por tu StorageClass real si usas otra
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 5Gi
 
 alertmanager:
+  enabled: true
   service:
     type: NodePort
     nodePort: 32002
