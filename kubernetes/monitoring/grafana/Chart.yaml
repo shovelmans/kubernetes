@@ -1,0 +1,8 @@
+apiVersion: v2
+name: grafana-wrapper
+version: 0.1.0
+
+dependencies:
+  - name: grafana
+    version: 8.5.8   # revisa la última en ArtifactHub
+    repository: https://grafana.github.io/helm-charts
