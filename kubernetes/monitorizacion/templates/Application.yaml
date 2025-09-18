@@ -8,10 +8,7 @@ spec:
   source:
     repoURL: https://github.com/shovelmans/kubernetes.git
     targetRevision: main
-    path: kubernetes/monitorizacion
-    helm:
-      valueFiles:
-        - values.yaml
+    path: monitorizacion
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
@@ -19,6 +16,7 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - Replace=true
+      - ServerSideApply=true
     automated:
       prune: true
       selfHeal: true
