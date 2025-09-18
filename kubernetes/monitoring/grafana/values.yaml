@@ -3,12 +3,10 @@ grafana:
   adminPassword: admin123  # cámbiala o usa un Secret existente
 
   service:
-    type: ClusterIP
+    type: NodePort
+    nodePort: 32000   # puerto fijo para acceder desde fuera
     port: 80
     targetPort: 3000
-  # Para exponer por NodePort, descomenta:
-  #  type: NodePort
-  #  nodePort: 32000
 
   # Provisioning del datasource Prometheus
   datasources:

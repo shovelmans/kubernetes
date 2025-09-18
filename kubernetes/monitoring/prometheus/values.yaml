@@ -3,7 +3,8 @@ prometheus:
   server:
     retention: "12h"
     service:
-      type: ClusterIP
+      type: NodePort
+      nodePort: 32090   # puerto fijo para acceder desde fuera
     resources:
       requests:
         cpu: 200m
