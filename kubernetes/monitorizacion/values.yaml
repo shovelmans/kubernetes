@@ -68,6 +68,7 @@ alertmanager:
   service:
     type: ClusterIP
 
-# 🔧 Desactivar admission webhook (evita errores de RBAC duplicados)
-admissionWebhooks:
-  enabled: false
+# 🔧 Desactivar admission webhooks del Prometheus Operator (evita los RBAC duplicados)
+prometheusOperator:
+  admissionWebhooks:
+    enabled: false
