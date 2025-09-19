@@ -1,14 +1,14 @@
 grafana:
   adminUser: admin
-  adminPassword: admin123  # ⚠️ en producción usa un Secret gestionado por ArgoCD/ExternalSecrets
+  adminPassword: admin123  # cámbiala o usa un Secret existente
 
   service:
     type: NodePort
-    nodePort: 32000
+    nodePort: 32000   # puerto fijo para acceder desde fuera
     port: 80
     targetPort: 3000
 
-  # Datasource Prometheus provisionado automáticamente
+  # Provisioning del datasource Prometheus
   datasources:
     datasources.yaml:
       apiVersion: 1
@@ -19,7 +19,7 @@ grafana:
           url: http://prometheus-server.monitoring.svc.cluster.local
           isDefault: true
 
-  # Sidecars para carga automática
+  # Sidecar para detectar dashboards/datasources adicionales vía ConfigMaps/Secrets (opcional)
   sidecar:
     datasources:
       enabled: true

@@ -1,0 +1,26 @@
+# Valores del subchart prometheus
+prometheus:
+  server:
+    retention: "12h"
+    service:
+      type: NodePort
+      nodePort: 32090   # puerto fijo para acceder desde fuera
+    resources:
+      requests:
+        cpu: 200m
+        memory: 400Mi
+      limits:
+        cpu: 500m
+        memory: 800Mi
+
+  alertmanager:
+    enabled: false
+
+  pushgateway:
+    enabled: false
+
+  kubeStateMetrics:
+    enabled: false
+
+  nodeExporter:
+    enabled: false
