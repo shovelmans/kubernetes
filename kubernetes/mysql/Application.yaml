@@ -8,14 +8,14 @@ spec:
   source:
     repoURL: https://github.com/shovelmans/kubernetes.git
     targetRevision: main
-    path: kubernetes/mysql
+    path: kubernetes/mysql   # 👈 ruta a tu carpeta con los YAMLs
   destination:
     server: https://kubernetes.default.svc
     namespace: mysql
   syncPolicy:
     syncOptions:
-      - CreateNamespace=true
-      - Replace=true   # 👈 Esto es lo nuevo
+      - CreateNamespace=true   # crea el ns si no existe
+      - Replace=true           # fuerza reemplazo si hay drift
     automated:
-      prune: true
-      selfHeal: true
+      prune: true              # elimina recursos borrados en Git
+      selfHeal: true           # repara si alguien cambia algo a mano

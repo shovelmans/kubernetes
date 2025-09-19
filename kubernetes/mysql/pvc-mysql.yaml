@@ -1,4 +1,3 @@
-# mysql-pvc.yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -10,4 +9,4 @@ spec:
   resources:
     requests:
       storage: 5Gi
-  storageClassName: do-block-storage-retain
+  storageClassName: do-block-storage   # cambia según tu cluster
