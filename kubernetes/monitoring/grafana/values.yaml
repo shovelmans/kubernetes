@@ -37,3 +37,12 @@ grafana:
     limits:
       cpu: 300m
       memory: 512Mi
+
+  # 👇 Activa persistencia (con type)
+  persistence:
+    type: pvc
+    enabled: true
+    storageClassName: do-block-storage   # usa la de tu cluster
+    accessModes:
+      - ReadWriteOnce
+    size: 5Gi
