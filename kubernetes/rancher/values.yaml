@@ -1,12 +1,13 @@
 rancher:
   replicas: 1
-
-  bootstrapPassword: admin123   # ⚠️ en prod usa un Secret seguro
-
-  hostname: rancher.local       # 👈 este campo sigue siendo obligatorio en Rancher, pon algo dummy
+  bootstrapPassword: admin123
+  hostname: rancher.local
 
   ingress:
-    enabled: false              # 👈 desactivamos Ingress
+    enabled: false
+
+  privateCA: false
+  tls: external
 
   service:
     type: NodePort
@@ -17,6 +18,4 @@ rancher:
   persistence:
     enabled: true
     storageClass: do-block-storage
-    accessModes:
-      - ReadWriteOnce
     size: 5Gi
