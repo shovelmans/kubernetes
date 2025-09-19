@@ -27,14 +27,9 @@ spec:
               name: mysql-secret
               key: mysql-root-password
         volumeMounts:
-        - name: mysql-data
+        - name: mysql-storage
           mountPath: /var/lib/mysql
-  volumeClaimTemplates:
-  - metadata:
-      name: mysql-data
-    spec:
-      accessModes: ["ReadWriteOnce"]
-      resources:
-        requests:
-          storage: 5Gi
-      storageClassName: do-block-storage
+      volumes:
+      - name: mysql-storage
+        persistentVolumeClaim:
+          claimName: mysql-pvc
