@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/shovelmans/kubernetes.git   # tu repo Git
     targetRevision: main
-    path: kubernetes/portainer-wrapper
+    path: kubernetes/portainer
   destination:
     server: https://kubernetes.default.svc
     namespace: portainer
