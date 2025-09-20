@@ -1,0 +1,10 @@
+apiVersion: v2
+name: portainer-wrapper
+description: "Wrapper Helm para portainer/portainer"
+type: application
+version: 0.1.0
+
+dependencies:
+  - name: portainer
+    version: "1.0.45"   # versión estable (ver ArtifactHub por updates)
+    repository: "https://portainer.github.io/k8s/"
