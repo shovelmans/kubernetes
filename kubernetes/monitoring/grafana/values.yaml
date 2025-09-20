@@ -11,10 +11,9 @@ grafana:
     enabled: true
     ingressClassName: nginx   # importante, así lo recoge tu ingress-nginx
     hosts:
-      - host: grafana.local
-        paths:
-          - path: /
-            pathType: Prefix
+      - grafana.local
+    path: /
+    pathType: Prefix
     tls: []   # si quieres TLS, aquí metes config con cert-manager
 
   datasources:
