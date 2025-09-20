@@ -8,11 +8,13 @@ spec:
   source:
     repoURL: https://github.com/shovelmans/kubernetes.git   # tu repo Git
     targetRevision: main
-    path: kubernetes/portainer
+    path: kubernetes/portainer   # carpeta donde tienes Chart.yaml y values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: portainer
   syncPolicy:
+    syncOptions:
+      - CreateNamespace=true    # 👈 crea el namespace automáticamente
     automated:
       prune: true
       selfHeal: true
