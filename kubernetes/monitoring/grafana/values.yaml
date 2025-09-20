@@ -1,12 +1,21 @@
 grafana:
   adminUser: admin
-  adminPassword: admin123  # ⚠️ en producción usa un Secret gestionado por ArgoCD/ExternalSecrets
+  adminPassword: admin123  # ⚠️ usa un Secret en producción
 
   service:
-    type: NodePort
-    nodePort: 32000
+    type: ClusterIP   # ya no necesitas NodePort
     port: 80
     targetPort: 3000
+
+  ingress:
+    enabled: true
+    ingressClassName: nginx   # importante, así lo recoge tu ingress-nginx
+    hosts:
+      - host: grafana.local
+        paths:
+          - path: /
+            pathType: Prefix
+    tls: []   # si quieres TLS, aquí metes config con cert-manager
 
   datasources:
     datasources.yaml:
@@ -24,12 +33,12 @@ grafana:
           database: personas
           user: root
           secureJsonData:
-            password: RootPass123!   # ⚠️ lo ideal es poner aquí un Secret en lugar de texto plano
+            password: RootPass123!
           jsonData:
             maxOpenConns: 100
             maxIdleConns: 100
             connMaxLifetime: 14400
-            tlsSkipVerify: true   # si no usas TLS en MySQL
+            tlsSkipVerify: true
 
   sidecar:
     datasources:
@@ -40,14 +49,6 @@ grafana:
       enabled: true
       label: grafana_dashboard
       searchNamespace: ALL
-
-  resources:
-    requests:
-      cpu: 100m
-      memory: 256Mi
-    limits:
-      cpu: 300m
-      memory: 512Mi
 
   persistence:
     type: pvc

@@ -8,7 +8,6 @@ grafana:
     port: 80
     targetPort: 3000
 
-  # Datasource Prometheus provisionado automáticamente
   datasources:
     datasources.yaml:
       apiVersion: 1
@@ -18,8 +17,20 @@ grafana:
           access: proxy
           url: http://prometheus-server.monitoring.svc.cluster.local
           isDefault: true
+        - name: MySQL
+          type: mysql
+          access: proxy
+          url: mysql.mysql.svc.cluster.local:3306
+          database: personas
+          user: root
+          secureJsonData:
+            password: RootPass123!   # ⚠️ lo ideal es poner aquí un Secret en lugar de texto plano
+          jsonData:
+            maxOpenConns: 100
+            maxIdleConns: 100
+            connMaxLifetime: 14400
+            tlsSkipVerify: true   # si no usas TLS en MySQL
 
-  # Sidecars para carga automática
   sidecar:
     datasources:
       enabled: true
@@ -37,3 +48,11 @@ grafana:
     limits:
       cpu: 300m
       memory: 512Mi
+
+  persistence:
+    type: pvc
+    enabled: true
+    storageClassName: do-block-storage
+    accessModes:
+      - ReadWriteOnce
+    size: 5Gi
