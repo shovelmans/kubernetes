@@ -3,8 +3,18 @@ prometheus:
   server:
     retention: "12h"
     service:
-      type: NodePort
-      nodePort: 32090   # puerto fijo para acceder desde fuera
+      type: ClusterIP   # ya no necesitamos NodePort
+      port: 80
+
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      hosts:
+        - prometheus.local
+      path: /
+      pathType: Prefix
+      tls: []   # sin TLS, simple HTTP
+
     resources:
       requests:
         cpu: 200m
