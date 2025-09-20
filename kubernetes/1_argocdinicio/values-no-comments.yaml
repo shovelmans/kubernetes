@@ -1112,25 +1112,17 @@ server:
     automountServiceAccountToken: true
 
   ingress:
-    enabled: false
+    enabled: true
     controller: generic
     labels: {}
     annotations: {}
-
-    ingressClassName: ""
-
-    hostname: ""
-
+    ingressClassName: "nginx"
+    hostname: "argocd.local"
     path: /
-
     pathType: Prefix
-
     tls: false
-
     extraHosts: []
-
     extraPaths: []
-
     extraRules: []
 
     extraTls: []
