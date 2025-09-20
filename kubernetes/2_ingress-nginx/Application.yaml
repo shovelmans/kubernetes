@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/shovelmans/kubernetes.git
     targetRevision: main
-    path: kubernetes/ingress-nginx
+    path: kubernetes/2_ingress-nginx
   destination:
     server: https://kubernetes.default.svc
     namespace: ingress-nginx
