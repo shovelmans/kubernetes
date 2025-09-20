@@ -1,21 +1,33 @@
 rancher:
   replicas: 1
   bootstrapPassword: admin123
-  hostname: rancher.local
+  hostname: rancher.local   # sigue siendo el host base
 
   ingress:
-    enabled: false
+    enabled: true
+    ingressClassName: nginx
+    extraPaths:
+      - path: /rancher
+        pathType: Prefix
+        backend:
+          service:
+            name: rancher
+            port:
+              number: 80
+    tls: []   # sin TLS en pruebas
 
   privateCA: false
   tls: external
-
-  service:
-    type: NodePort
-    nodePorts:
-      http: 30080
-      https: 30443
 
   persistence:
     enabled: true
     storageClass: do-block-storage
     size: 5Gi
+
+  resources:
+    requests:
+      cpu: 250m
+      memory: 512Mi
+    limits:
+      cpu: 500m
+      memory: 1Gi
