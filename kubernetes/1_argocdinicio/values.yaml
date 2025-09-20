@@ -1,48 +1,48 @@
 server:
   service:
-    type: NodePort
-    nodePortHttp: 32080
-    nodePortHttps: 32443
+    type: NodePort          # Exponer ArgoCD Server como NodePort
+    nodePortHttp: 32080     # Puerto HTTP externo
+    nodePortHttps: 32443    # Puerto HTTPS externo
   resources:
     requests:
-      cpu: 50m
-      memory: 128Mi
+      cpu: 50m              # CPU mínima reservada
+      memory: 128Mi         # Memoria mínima reservada
     limits:
-      cpu: 200m
-      memory: 256Mi
+      cpu: 200m             # CPU máxima permitida
+      memory: 256Mi         # Memoria máxima permitida
 
 repoServer:
   resources:
     requests:
-      cpu: 50m
-      memory: 128Mi
+      cpu: 50m              # CPU mínima reservada para Repo Server
+      memory: 128Mi         # Memoria mínima reservada
     limits:
-      cpu: 200m
-      memory: 256Mi
+      cpu: 200m             # CPU máxima permitida
+      memory: 256Mi         # Memoria máxima permitida
 
 applicationController:
   resources:
     requests:
-      cpu: 100m
-      memory: 128Mi
+      cpu: 100m             # CPU mínima reservada para App Controller
+      memory: 128Mi         # Memoria mínima reservada
     limits:
-      cpu: 300m
-      memory: 512Mi
+      cpu: 300m             # CPU máxima permitida
+      memory: 512Mi         # Memoria máxima permitida
 
 dex:
   resources:
     requests:
-      cpu: 20m
-      memory: 64Mi
+      cpu: 20m              # CPU mínima reservada para Dex (login SSO)
+      memory: 64Mi          # Memoria mínima reservada
     limits:
-      cpu: 100m
-      memory: 128Mi
+      cpu: 100m             # CPU máxima permitida
+      memory: 128Mi         # Memoria máxima permitida
 
 redis:
   resources:
     requests:
-      cpu: 20m
-      memory: 64Mi
+      cpu: 20m              # CPU mínima reservada para Redis (cache/sesiones)
+      memory: 64Mi          # Memoria mínima reservada
     limits:
-      cpu: 100m
-      memory: 128Mi
+      cpu: 100m             # CPU máxima permitida
+      memory: 128Mi         # Memoria máxima permitida
