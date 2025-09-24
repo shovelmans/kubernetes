@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: grafana-release
+  name: grafana
   namespace: argocd
 spec:
   project: default
@@ -13,10 +13,10 @@ spec:
         releaseName: grafana
         valueFiles:
           - $values/values.yaml
-    - repoURL: https://tu.git.server/tu-org/tu-repo.git
+    - repoURL: https://github.com/shovelmans/kubernetes.git
       targetRevision: main
       ref: values
-      path: proyectos_viewnext/PROYECTO_DEVOPS/kubernetes/grafana
+      path: kubernetes/Helm/curso/grafana
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
