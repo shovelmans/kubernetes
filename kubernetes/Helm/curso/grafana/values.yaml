@@ -22,23 +22,10 @@ service:
   targetPort: 3000
   nodePort: 32000
 
-## Probes corregidos: solo httpGet (no tcpSocket)
+# Desactiva los probes que trae el chart (evita conflicto tcpSocket/httpGet)
 livenessProbe:
-  enabled: true
-  httpGet:
-    path: /
-    port: http
-  initialDelaySeconds: 30
-  timeoutSeconds: 5
-  failureThreshold: 6
-  periodSeconds: 10
-
+  enabled: false
 readinessProbe:
-  enabled: true
-  httpGet:
-    path: /
-    port: http
-  initialDelaySeconds: 10
-  timeoutSeconds: 5
-  failureThreshold: 6
-  periodSeconds: 10
+  enabled: false
+startupProbe:
+  enabled: false
