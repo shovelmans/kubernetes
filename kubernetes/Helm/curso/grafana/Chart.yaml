@@ -1,0 +1,11 @@
+apiVersion: v2
+name: grafana-wrapper
+description: "Wrapper chart para desplegar Grafana de Bitnami"
+type: application
+version: 0.1.0
+appVersion: "12.1.1"
+
+dependencies:
+  - name: grafana
+    version: 10.2.3       # mira la versión exacta del chart en el repo Bitnami
+    repository: https://charts.bitnami.com/bitnami
