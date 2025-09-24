@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: apache-release1
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: apache
+    targetRevision: 11.4.29
+    helm:
+      releaseName: apache-release1
+      valueFiles:
+        - values.yaml   # el tuyo, con NodePort y /opt/misdatos
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: apache
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
