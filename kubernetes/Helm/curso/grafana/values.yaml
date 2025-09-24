@@ -1,0 +1,20 @@
+adminPassword: admin123
+adminUser: admin
+persistence:
+  accessModes:
+  - ReadWriteOnce
+  enabled: true
+  size: 10Gi
+  type: pvc
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 256Mi
+service:
+  nodePort: 32000
+  port: 80
+  targetPort: 3000
+  type: NodePort

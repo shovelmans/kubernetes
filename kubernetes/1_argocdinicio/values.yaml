@@ -12,13 +12,18 @@ server:
       memory: 256Mi         # Memoria máxima permitida
 
 repoServer:
+  extraArgs:
+    - --port=8081
+    - --metrics-port=8084
+    - --address=0.0.0.0
+    - --metrics-address=0.0.0.0
   resources:
     requests:
       cpu: 50m              # CPU mínima reservada para Repo Server
       memory: 128Mi         # Memoria mínima reservada
     limits:
       cpu: 200m             # CPU máxima permitida
-      memory: 256Mi         # Memoria máxima permitida
+      memory: 1Gi           # Más memoria para evitar OOMKilled
 
 applicationController:
   resources:
