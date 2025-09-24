@@ -1,0 +1,36 @@
+controller:
+  replicaCount: 1
+
+  autoscaling:
+    enabled: false
+
+  resources:
+    requests:
+      cpu: 20m
+      memory: 64Mi
+    limits:
+      cpu: 100m
+      memory: 128Mi
+
+  publishService:
+    enabled: true
+
+  admissionWebhooks:
+    enabled: false
+
+  metrics:
+    enabled: false
+
+  service:
+    type: LoadBalancer
+    externalTrafficPolicy: Cluster
+    annotations:
+      # Puedes usar esto si quieres forzar reglas en el LB de DO
+      # service.beta.kubernetes.io/do-loadbalancer-name: "nginx-lb"
+      # service.beta.kubernetes.io/do-loadbalancer-protocol: "tcp"
+      # service.beta.kubernetes.io/do-loadbalancer-enable-proxy-protocol: "true"
+      # service.beta.kubernetes.io/do-loadbalancer-algorithm: "round_robin"
+      # service.beta.kubernetes.io/do-loadbalancer-size-unit: "1"
+
+defaultBackend:
+  enabled: false
