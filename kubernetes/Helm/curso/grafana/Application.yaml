@@ -11,6 +11,8 @@ spec:
     path: kubernetes/Helm/curso/grafana
     helm:
       releaseName: grafana
+      valueFiles:
+        - values.yaml   # 👈 asegúrate de que este archivo exista en esa carpeta
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
