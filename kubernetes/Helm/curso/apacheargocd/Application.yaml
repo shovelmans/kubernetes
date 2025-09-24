@@ -11,8 +11,6 @@ spec:
     path: kubernetes/Helm/curso/apacheargocd
     helm:
       releaseName: apache-release1
-      valueFiles:
-        - values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: apache
