@@ -7,5 +7,5 @@ appVersion: "12.1.1"
 
 dependencies:
   - name: grafana
-    version: 10.2.3       # mira la versión exacta del chart en el repo Bitnami
+    version: 12.1.8   # <- versión del chart, no de la app
     repository: https://charts.bitnami.com/bitnami
