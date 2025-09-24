@@ -20,7 +20,6 @@ grafana:
   service:
     type: NodePort
     port: 3000
-    targetPort: http
     nodePorts:
       http: 32000
 
