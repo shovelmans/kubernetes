@@ -6,11 +6,13 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/shovelmans/kubernetes.git
-    targetRevision: main
-    path: kubernetes/Helm/curso/apacheargocd
+    repoURL: https://charts.bitnami.com/bitnami   # Chart oficial
+    chart: apache
+    targetRevision: 11.4.29                      # Versión exacta
     helm:
       releaseName: apache-release1
+      valueFiles:
+        - values.yaml                            # Tus valores
   destination:
     server: https://kubernetes.default.svc
     namespace: apache
