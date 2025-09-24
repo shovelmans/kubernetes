@@ -6,17 +6,19 @@ metadata:
 spec:
   project: default
   sources:
+    # Source 1: chart oficial
     - repoURL: https://grafana.github.io/helm-charts
       chart: grafana
       targetRevision: 10.0.0
       helm:
         releaseName: grafana
         valueFiles:
-          - $values/values.yaml
+          - $values/values.yaml            # <–– OJO: referencia al otro source
+    # Source 2: tu repo con el values.yaml
     - repoURL: https://github.com/shovelmans/kubernetes.git
       targetRevision: main
       ref: values
-      path: kubernetes/Helm/curso/grafana
+      path: kubernetes/Helm/curso/grafana  # aquí está tu values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
