@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: headlamp-helm-plugin
+  namespace: headlamp
+  labels:
+    app.kubernetes.io/name: headlamp
+    app.kubernetes.io/instance: headlamp
+    headlamp-plugin: "true"
+data:
+  package.json: |
+    {
+      "name": "headlamp-helm-plugin",
+      "version": "0.1.0",
+      "headlamp": {
+        "plugin": true
+      }
+    }
+  index.js: |
+    import { registerPlugin } from "@kinvolk/headlamp-plugin";
+    import React from "react";
+
+    const HelmPage = () => {
+      return (
+        <iframe
+          src="https://artifacthub.io/packages/helm"
+          style={{ width: "100%", height: "100%", border: "none" }}
+          title="Helm Releases"
+        />
+      );
+    };
+
+    registerPlugin("helm", {
+      page: {
+        path: "/helm",
+        title: "Helm Releases",
+        component: HelmPage,
+      },
+    });

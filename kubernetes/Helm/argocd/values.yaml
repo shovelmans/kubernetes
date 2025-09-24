@@ -1,0 +1,5 @@
+server:
+  service:
+    type: NodePort
+    nodePortHttp: 31443   # Puerto opcional para HTTP
+    nodePortHttps: 30443  # Puerto opcional para HTTPS
