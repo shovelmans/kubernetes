@@ -1,11 +1,13 @@
-adminPassword: admin123
 adminUser: admin
+adminPassword: admin123
+
 persistence:
-  accessModes:
-  - ReadWriteOnce
   enabled: true
-  size: 10Gi
   type: pvc
+  accessModes:
+    - ReadWriteOnce
+  size: 10Gi
+
 resources:
   limits:
     cpu: 500m
@@ -13,8 +15,30 @@ resources:
   requests:
     cpu: 100m
     memory: 256Mi
+
 service:
-  nodePort: 32000
+  type: NodePort
   port: 80
   targetPort: 3000
-  type: NodePort
+  nodePort: 32000
+
+## Probes corregidos: solo httpGet (no tcpSocket)
+livenessProbe:
+  enabled: true
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 6
+  periodSeconds: 10
+
+readinessProbe:
+  enabled: true
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 6
+  periodSeconds: 10
