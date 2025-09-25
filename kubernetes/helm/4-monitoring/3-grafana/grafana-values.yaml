@@ -1,35 +1,25 @@
-admin:
-  user: admin
-  password: admin
+grafana:
+  admin:
+    user: admin
+    password: admin
 
-datasources:
-  secretDefinition:
-    apiVersion: 1
-    datasources:
-      - name: Prometheus
-        type: prometheus
-        access: proxy
-        url: http://prometheus-server.monitoring.svc.cluster.local
-        isDefault: true
+  persistence:
+    enabled: true
+    type: pvc
+    existingClaim: grafana-pvc
+    resourcePolicy: keep
+    storageClass: ""
+    accessModes:
+      - ReadWriteOnce
+    size: 5Gi
 
-ingress:
-  enabled: true
-  ingressClassName: nginx
-  hostname: grafana.local
-  path: /
-  pathType: Prefix
-  annotations: {}
-  tls: false
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hostname: grafana.local
+    path: /
+    pathType: Prefix
+    tls: false
 
-persistence:
-  enabled: true
-  type: pvc
-  existingClaim: grafana-pvc   # 👈 fuerza a usar tu PVC
-  resourcePolicy: keep         # 👈 evita que ArgoCD/Helm lo borre
-  storageClass: ""             # 👈 desactiva el dynamic provisioning
-  accessModes:
-    - ReadWriteOnce            # 👈 obligatorio para que no intente crear otro
-  size: 5Gi                    # 👈 obligatorio aunque se ignore al usar existingClaim
-
-service:
-  type: ClusterIP
+  service:
+    type: ClusterIP
