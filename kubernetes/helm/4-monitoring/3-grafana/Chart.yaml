@@ -3,5 +3,5 @@ name: grafana-app
 version: 0.1.0
 dependencies:
   - name: grafana
-    version: 12.1.8
+    version: 12.1.8    # usa la misma versión que ya desplegaste
     repository: https://charts.bitnami.com/bitnami
