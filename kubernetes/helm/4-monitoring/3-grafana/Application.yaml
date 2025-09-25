@@ -7,7 +7,7 @@ spec:
   project: default
 
   source:
-    repoURL: https://github.com/JorgeVicenteVN/kubernetes.git
+    repoURL: https://github.com/shovelmans/kubernetes.git
     targetRevision: main
     path: kubernetes/helm/4-monitoring/3-grafana
     helm:
