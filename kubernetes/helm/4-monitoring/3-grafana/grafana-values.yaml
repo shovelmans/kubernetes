@@ -22,4 +22,6 @@ grafana:
     tls: false
 
   service:
-    type: ClusterIP
+    type: NodePort   # Cambiado a NodePort para acceso directo (opcional)
+    nodePorts:
+      http: 32000    # Puerto externo en los nodos
