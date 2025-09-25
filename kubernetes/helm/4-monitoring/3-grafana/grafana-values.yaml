@@ -23,14 +23,3 @@ grafana:
 
   service:
     type: ClusterIP
-
-  extraConfig:
-    grafana.ini: |
-      [server]
-      root_url = %(protocol)s://%(domain)s/
-      [analytics]
-      reporting_enabled = false
-      [users]
-      allow_sign_up = false
-      [branding]
-      app_title = Grafana GitOps 🚀
