@@ -1,0 +1,25 @@
+admin:
+  password: admin
+  user: admin
+datasources:
+  secretDefinition:
+    apiVersion: 1
+    datasources:
+    - access: proxy
+      isDefault: true
+      name: Prometheus
+      type: prometheus
+      url: http://prometheus-server.monitoring.svc.cluster.local
+ingress:
+  annotations: {}
+  enabled: true
+  hostname: grafana.local
+  ingressClassName: nginx
+  path: /
+  pathType: Prefix
+  tls: false
+persistence:
+  enabled: true
+  existingClaim: grafana-pvc
+service:
+  type: ClusterIP

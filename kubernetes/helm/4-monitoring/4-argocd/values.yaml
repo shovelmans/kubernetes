@@ -1,0 +1,23 @@
+global:
+  domain: argocd.local   # dominio del Ingress
+
+configs:
+  secret:
+    argocdServerAdminPassword: ""   # si quieres, puedes poner un hash bcrypt de la contraseña admin
+  params:
+    server.insecure: true            # permite acceso HTTP sin TLS interno
+
+server:
+  service:
+    type: ClusterIP
+
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - argocd.local
+    paths:
+      - /
+    tls: []  # puedes cambiarlo si configuras certificados
+
+#kubectl create namespace argocd && helm upgrade --install argocd argo/argo-cd -n argocd -f values.yaml --description "Desplegado ArgoCD con Ingress" --create-namespace

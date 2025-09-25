@@ -1,0 +1,29 @@
+admin:
+  user: admin
+  password: admin  # cámbialo en producción
+
+service:
+  type: ClusterIP
+
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  hostname: grafana.local
+  path: /
+  pathType: Prefix
+  annotations: {}
+  tls: false
+
+datasources:
+  secretDefinition:
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://prometheus-server.monitoring.svc.cluster.local
+        access: proxy
+        isDefault: true
+
+persistence:
+  enabled: true
+  existingClaim: grafana-pvc   # 👈 usa el PVC que creaste

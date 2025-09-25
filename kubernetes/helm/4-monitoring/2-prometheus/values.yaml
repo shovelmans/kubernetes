@@ -1,0 +1,32 @@
+server:
+  service:
+    type: ClusterIP
+
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hostname: prometheus.local
+    path: /
+    pathType: Prefix
+    annotations: {}
+    tls: false
+
+  extraScrapeConfigs:
+    - job_name: 'node-exporter'
+      kubernetes_sd_configs:
+        - role: pod
+      relabel_configs:
+        - source_labels: [__meta_kubernetes_pod_label_app_kubernetes_io_name]
+          action: keep
+          regex: node-exporter
+
+alertmanager:
+  enabled: true
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hostname: alertmanager.local
+    path: /
+    pathType: Prefix
+    annotations: {}
+    tls: false
