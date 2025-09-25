@@ -23,10 +23,13 @@ ingress:
 
 persistence:
   enabled: true
-  existingClaim: grafana-pvc
-  storageClass: ""
-  accessModes: []
-  size: 5Gi
+  type: pvc
+  existingClaim: grafana-pvc   # 👈 fuerza a usar tu PVC
+  resourcePolicy: keep         # 👈 evita que ArgoCD/Helm lo borre
+  storageClass: ""             # 👈 desactiva el dynamic provisioning
+  accessModes:
+    - ReadWriteOnce            # 👈 obligatorio para que no intente crear otro
+  size: 5Gi                    # 👈 obligatorio aunque se ignore al usar existingClaim
 
 service:
   type: ClusterIP
