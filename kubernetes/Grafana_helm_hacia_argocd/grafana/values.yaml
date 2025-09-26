@@ -18,5 +18,11 @@ persistence:
   enabled: true
   existingClaim: grafana-pvc
 
+# El chart de Grafana trae un template en templates/tests/test.yaml
+# usado solo para 'helm test'. En ArgoCD no se ejecutan tests,
+# pero si no definimos esta clave aparece un error del tipo:
+# "nil pointer evaluating interface {}.enabled" al renderizar.
+# Por eso lo dejamos explícitamente en false, para evitar que ArgoCD
+# intente generar el Pod de test.
 testFramework:
   enabled: false
