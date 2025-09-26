@@ -1,0 +1,10 @@
+apiVersion: velero.io/v1
+kind: Backup
+metadata:
+  name: backup-total
+  namespace: velero
+spec:
+  includedNamespaces:
+    - '*'    # significa todos
+  ttl: 240h0m0s
+  defaultVolumesToFsBackup: true

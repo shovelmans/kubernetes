@@ -1,0 +1,9 @@
+apiVersion: velero.io/v1
+kind: Restore
+metadata:
+  name: restore-monitoring-test
+  namespace: velero
+spec:
+  backupName: backup-monitoring
+  namespaceMapping:
+    monitoring: monitoring-restore

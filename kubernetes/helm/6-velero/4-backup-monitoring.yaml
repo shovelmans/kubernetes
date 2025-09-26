@@ -1,0 +1,10 @@
+apiVersion: velero.io/v1
+kind: Backup
+metadata:
+  name: backup-monitoring
+  namespace: velero
+spec:
+  includedNamespaces:
+    - monitoring
+  ttl: 240h0m0s
+  defaultVolumesToFsBackup: true   # asegura respaldo de PVC vía node-agent

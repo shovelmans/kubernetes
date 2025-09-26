@@ -1,0 +1,31 @@
+configuration:
+  backupStorageLocation:
+    - name: default
+      provider: aws
+      bucket: backupkubernetesjorge
+      default: true
+      config:
+        region: sfo3
+        s3ForcePathStyle: "true"
+        s3Url: https://sfo3.digitaloceanspaces.com
+  volumeSnapshotLocation: []   # 👈 evita que intente crear uno vacío
+
+credentials:
+  useSecret: true
+  existingSecret: cloud-credentials
+
+initContainers:
+  - name: velero-plugin-for-aws
+    image: velero/velero-plugin-for-aws:v1.8.2
+    volumeMounts:
+      - mountPath: /target
+        name: plugins
+
+deployNodeAgent: true
+
+
+
+
+#kubectl -n velero create secret generic cloud-credentials \
+#  --from-literal=AWS_ACCESS_KEY_ID=DO00EXEZZKBET8NTMKYL \
+#  --from-literal=AWS_SECRET_ACCESS_KEY=my4RWu7PaNkXMHOobasPITYXI9vBLwNymrmj4tM6hf0

@@ -1,0 +1,184 @@
+📒 Guía: Backups y Restores con Velero en DigitalOcean Kubernetes
+1️⃣ Preparación en DigitalOcean
+
+Crear un Space (bucket) → ej: backupkubernetesjorge en región sfo3.
+
+En API → Spaces access keys, generar una Access Key y Secret Key.
+
+Ejemplo:
+
+Access Key ID: DO00EXEZZKBET8NTMKYL
+Secret Key   : my4RWu7PaNkXMHOobasPITYXI9vBLwNymrmj4tM6hf0
+
+2️⃣ Crear secreto de credenciales para Velero
+
+Velero espera un archivo estilo AWS en /credentials/cloud.
+
+Crear archivo temporal en tu máquina:
+
+cat > credentials-velero <<EOF
+[default]
+aws_access_key_id=DO00EXEZZKBET8NTMKYL
+aws_secret_access_key=my4RWu7PaNkXMHOobasPITYXI9vBLwNymrmj4tM6hf0
+EOF
+
+
+Crear el secreto en Kubernetes:
+
+kubectl create secret generic cloud-credentials \
+  --namespace velero \
+  --from-file=cloud=credentials-velero
+
+3️⃣ Instalar Velero con Helm
+
+Añadir repo de charts:
+
+helm repo add vmware-tanzu https://vmware-tanzu.github.io/helm-charts
+helm repo update
+
+
+Crear archivo values.yaml:
+
+configuration:
+  backupStorageLocation:
+    - name: default
+      provider: aws
+      bucket: backupkubernetesjorge
+      default: true
+      config:
+        region: sfo3
+        s3ForcePathStyle: "true"
+        s3Url: https://sfo3.digitaloceanspaces.com
+  volumeSnapshotLocation: []   # desactivamos snapshots DO, solo backups en Spaces
+
+credentials:
+  useSecret: true
+  existingSecret: cloud-credentials
+
+initContainers:
+  - name: velero-plugin-for-aws
+    image: velero/velero-plugin-for-aws:v1.8.2
+    volumeMounts:
+      - mountPath: /target
+        name: plugins
+
+deployNodeAgent: true
+
+
+Instalar Velero:
+
+helm install velero vmware-tanzu/velero \
+  --namespace velero --create-namespace \
+  -f values.yaml
+
+
+Verificar:
+
+kubectl get pods -n velero
+
+
+Deberías ver velero-xxxx y node-agent-xxxx en estado Running.
+
+4️⃣ Crear un backup del namespace monitoring
+
+Ejemplo backup-monitoring.yaml:
+
+apiVersion: velero.io/v1
+kind: Backup
+metadata:
+  name: backup-monitoring
+  namespace: velero
+spec:
+  includedNamespaces:
+    - monitoring
+  ttl: 240h0m0s
+  defaultVolumesToFsBackup: true
+
+
+Aplicar:
+
+kubectl apply -f backup-monitoring.yaml
+
+
+Ver estado:
+
+kubectl get backups -n velero
+kubectl describe backup backup-monitoring -n velero
+
+
+✅ Cuando aparezca Phase: Completed, el backup está guardado en tu Space (backups/ + kopia/).
+
+5️⃣ Probar un restore en otro namespace
+
+Ejemplo restore-monitoring-test.yaml:
+
+apiVersion: velero.io/v1
+kind: Restore
+metadata:
+  name: restore-monitoring-test
+  namespace: velero
+spec:
+  backupName: backup-monitoring
+  namespaceMapping:
+    monitoring: monitoring-restore
+
+
+Aplicar:
+
+kubectl apply -f restore-monitoring-test.yaml
+
+
+Verificar:
+
+kubectl get all -n monitoring-restore
+kubectl get pvc -n monitoring-restore
+
+
+👉 El PVC de Grafana se restaurará con datos.
+👉 El Service puede que no se restaure si el NodePort ya está ocupado → créalo manualmente con otro puerto (ej: 32001).
+
+6️⃣ Restore real en caso de desastre
+
+Si alguna vez borras monitoring, puedes restaurarlo en el mismo namespace:
+
+apiVersion: velero.io/v1
+kind: Restore
+metadata:
+  name: restore-monitoring
+  namespace: velero
+spec:
+  backupName: backup-monitoring
+
+7️⃣ Programar backups automáticos (opcional)
+
+Ejemplo schedule-monitoring.yaml (backup diario a las 2 AM):
+
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: monitoring-backup
+  namespace: velero
+spec:
+  schedule: "0 2 * * *"
+  template:
+    ttl: 240h0m0s
+    includedNamespaces:
+      - monitoring
+    defaultVolumesToFsBackup: true
+
+
+Aplicar:
+
+kubectl apply -f schedule-monitoring.yaml
+
+📌 Resumen final
+
+✅ Configuraste Velero con DigitalOcean Spaces.
+
+✅ Probaste un backup de monitoring → completado en el bucket.
+
+✅ Hiciste un restore de prueba en monitoring-restore → Grafana + PVC restaurados.
+
+⚠️ Services con NodePort pueden necesitar ajuste manual (por conflicto de puertos).
+
+🚀 Ya puedes confiar en Velero para restaurar tu namespace monitoring en caso de desastre.

@@ -30,7 +30,7 @@ Instala el chart de ArgoCD en el namespace `argocd` utilizando un archivo `value
 El flag `--debug` muestra detalles del proceso y `--wait` asegura que Helm espere hasta que todos los pods estén listos.
 
 ```bash
-helm install argocd ./argo-cd-8.3.7.tgz -n argocd -f values.yaml --debug --wait
+helm install argocd ./argo-cd-8.3.7.tgz -n argocd --create-namespace -f values.yaml --debug --wait
 ```
 
 ---
