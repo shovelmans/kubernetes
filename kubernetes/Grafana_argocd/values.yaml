@@ -1,16 +1,20 @@
-adminPassword: admin
 adminUser: admin
+adminPassword: admin
+
 ingress:
   annotations: {}
   enabled: true
   hosts:
-  - grafana.local
+    - grafana.local
   ingressClassName: nginx
   path: /
   pathType: Prefix
   tls: false
+
 persistence:
   enabled: true
+  type: pvc                # 👈 necesario para que el chart use PVC
   existingClaim: grafana-pvc-restore
+
 service:
   type: ClusterIP
