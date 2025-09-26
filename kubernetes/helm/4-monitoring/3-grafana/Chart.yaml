@@ -1,7 +1,10 @@
 apiVersion: v2
 name: grafana-app
+description: Mi wrapper de Grafana gestionado por ArgoCD
+type: application
 version: 0.1.0
+
 dependencies:
   - name: grafana
-    version: 12.1.8    # usa la misma versión que ya desplegaste
-    repository: https://charts.bitnami.com/bitnami
+    version: 10.0.0   # 👈 esta es la que usaste según helm list
+    repository: https://grafana.github.io/helm-charts
