@@ -11,6 +11,6 @@ ingress:
   tls: false
 persistence:
   enabled: true
-  existingClaim: ggrafana-pvc-restore
+  existingClaim: grafana-pvc-restore
 service:
   type: ClusterIP
