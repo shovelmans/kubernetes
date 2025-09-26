@@ -18,16 +18,25 @@ persistence:
   enabled: true
   existingClaim: grafana-pvc
 
-# El chart de Grafana trae un template en templates/tests/test.yaml
-# usado solo para 'helm test'. En ArgoCD no se ejecutan tests,
-# pero si no definimos esta clave aparece un error del tipo:
-# "nil pointer evaluating interface {}.enabled" al renderizar.
-# Por eso lo dejamos explícitamente en false, para evitar que ArgoCD
-# intente generar el Pod de test.
+# El chart trae un Pod de tests (templates/tests/test.yaml) pensado para "helm test".
+# En ArgoCD no se ejecuta y si no existe esta clave rompe al renderizar.
 testFramework:
   enabled: false
 
-# El chart incluye un template para crear un ServiceMonitor (Prometheus Operator).
-# En ArgoCD falla si no existe esta clave, así que lo dejamos explícitamente en false.
+# El chart puede crear un ServiceMonitor (Prometheus Operator).
+# Si no usas Prometheus Operator, déjalo desactivado para evitar el mismo error.
 serviceMonitor:
   enabled: false
+
+# Algunos templates consultan .Values.serviceAccount.create.
+# Define el bloque para que no sea nil.
+serviceAccount:
+  create: true         # o false si quieres usar una SA existente
+  name: ""             # o pon el nombre de tu SA si create=false
+  annotations: {}
+  labels: {}
+  automountServiceAccountToken: true
+
+# Suele ser referenciado también por los templates; mejor declararlo.
+rbac:
+  create: true
