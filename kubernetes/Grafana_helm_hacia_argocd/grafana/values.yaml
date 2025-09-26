@@ -17,3 +17,6 @@ ingress:
 persistence:
   enabled: true
   existingClaim: grafana-pvc
+
+testFramework:
+  enabled: false
