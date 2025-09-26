@@ -7,8 +7,8 @@ spec:
   project: default
   source:
     repoURL: 'https://github.com/shovelmans/kubernetes'
-    targetRevision: main        # rama que quieres usar
-    path: VN/HELM/kube-prometheus-stack
+    targetRevision: main
+    path: VN/HELM/kube-prometheus-stack   # apunta al chart Helm
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: monitoring
