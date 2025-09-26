@@ -9,6 +9,9 @@ spec:
     repoURL: https://github.com/shovelmans/kubernetes.git
     targetRevision: main
     path: kubernetes/Grafana_helm_hacia_argocd/grafana
+    helm:
+      valueFiles:
+        - values-custom.yaml   # 👈 tu overlay
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
