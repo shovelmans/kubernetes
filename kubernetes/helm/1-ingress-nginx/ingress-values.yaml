@@ -7,10 +7,10 @@ controller:
   resources:
     requests:
       cpu: 20m
-      memory: 65Mi
+      memory: 60Mi
     limits:
       cpu: 100m
-      memory: 130Mi
+      memory: 120Mi
 
   publishService:
     enabled: true
