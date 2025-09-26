@@ -42,7 +42,7 @@ rbac:
   create: true
 
 # El chart espera que exista el bloque 'image' porque lo usa en helpers y labels.
-# Si no lo definimos, ArgoCD falla con: 
+# Si no lo definimos, ArgoCD falla con:
 # "nil pointer evaluating interface {}.tag" en templates/_helpers.tpl.
 # Dejamos 'tag' vacío para que use el appVersion definido en Chart.yaml.
 image:
@@ -50,3 +50,11 @@ image:
   tag: ""                # vacío → usará appVersion del Chart.yaml (ej: 12.1.1)
   sha: ""
   pullPolicy: IfNotPresent
+
+# El chart también consulta .Values.admin.existingSecret en templates/secret.yaml.
+# Si no lo definimos, ArgoCD rompe al renderizar.
+# Dejamos existingSecret vacío para que use adminUser/adminPassword definidos arriba.
+admin:
+  existingSecret: ""
+  userKey: admin-user
+  passwordKey: admin-password
