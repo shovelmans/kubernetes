@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/shovelmans/kubernetes.git
     targetRevision: main
-    path: kubernetes/Grafana_helm_hacia_argocd/grafana
+    path: kubernetes/Grafana_argocd
     helm:
       releaseName: grafana
       valueFiles:
