@@ -1,8 +1,0 @@
-kubectl exec -it vault-0 -n vault -- vault operator init
-
-kubectl exec -it vault-0 -n vault -- vault operator unseal <clave1>
-kubectl exec -it vault-0 -n vault -- vault operator unseal <clave2>
-kubectl exec -it vault-0 -n vault -- vault operator unseal <clave3>
-
-
-kubectl exec -it vault-0 -n vault -- vault login <root_token>
