@@ -1,0 +1,16 @@
+adminPassword: admin
+adminUser: admin
+ingress:
+  annotations: {}
+  enabled: true
+  hosts:
+  - grafana.local
+  ingressClassName: nginx
+  path: /
+  pathType: Prefix
+  tls: false
+persistence:
+  enabled: true
+  existingClaim: ggrafana-pvc-restore
+service:
+  type: ClusterIP

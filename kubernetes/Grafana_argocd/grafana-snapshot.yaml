@@ -1,0 +1,9 @@
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshot
+metadata:
+  name: grafana-snapshot
+  namespace: monitoring
+spec:
+  volumeSnapshotClassName: do-block-storage   # 👈 el que viste con kubectl
+  source:
+    persistentVolumeClaimName: grafana-pvc    # 👈 tu PVC actual
