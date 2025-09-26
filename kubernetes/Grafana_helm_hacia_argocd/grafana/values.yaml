@@ -26,3 +26,8 @@ persistence:
 # intente generar el Pod de test.
 testFramework:
   enabled: false
+
+# El chart incluye un template para crear un ServiceMonitor (Prometheus Operator).
+# En ArgoCD falla si no existe esta clave, así que lo dejamos explícitamente en false.
+serviceMonitor:
+  enabled: false
