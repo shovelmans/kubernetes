@@ -6,16 +6,11 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://prometheus-community.github.io/helm-charts
-    chart: kube-prometheus-stack
-    targetRevision: 77.11.1   # versión del chart que tienes instalado
-    helm:
-      releaseName: kube-prometheus-stack
-      values: |-
-        # Aquí podrías poner overrides en YAML si quieres
-        # de momento vacío = todo por defecto
+    repoURL: 'https://github.com/shovelmans/kubernetes'
+    targetRevision: main        # rama que quieres usar
+    path: VN/HELM/kube-prometheus-stack
   destination:
-    server: https://kubernetes.default.svc
+    server: 'https://kubernetes.default.svc'
     namespace: monitoring
   syncPolicy:
     automated:

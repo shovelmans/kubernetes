@@ -1,0 +1,7 @@
+# Ejemplo mínimo: Ingress para Grafana
+grafana:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - grafana.local
