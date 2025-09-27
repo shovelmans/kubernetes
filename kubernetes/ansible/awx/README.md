@@ -12,7 +12,21 @@ Esto desplegó el operador (`awx-operator-controller-manager`) en el namespace `
 
 ---
 
-## 2. Definir instancia AWX (`awx.yaml`)
+## 2. Aplicar los CRDs con Kustomize
+
+```bash
+kubectl kustomize . | kubectl apply -f -
+```
+
+Esto creó los CRDs (`awx.awx.ansible.com`, etc.) que permiten definir un recurso de tipo **AWX**.
+
+👉 Aquí se mezcló **Helm + Kustomize**, pero como los CRDs y el operador son compatibles, no se estorbaron.
+
+---
+
+## 3. Definir instancia AWX (`awx.yaml`)
+
+Archivo `awx.yaml`:
 
 ```yaml
 apiVersion: awx.ansible.com/v1beta1
@@ -25,6 +39,25 @@ spec:
   nodeport_port: 30080
 ```
 
+Archivo `awx-service.yaml`:
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: awx-service
+  namespace: awx
+spec:
+  type: NodePort
+  selector:
+    app.kubernetes.io/name: awx-web
+    app.kubernetes.io/part-of: awx
+  ports:
+    - port: 8052       # Puerto dentro del cluster
+      targetPort: 8052 # Puerto del contenedor
+      nodePort: 30080  # Puerto expuesto en el nodo
+```
+
 Aplicar los manifiestos:
 
 ```bash
@@ -34,7 +67,7 @@ kubectl apply -f awx-service.yaml
 
 ---
 
-## 3. Parche de error en Postgres
+## 4. Parche de error en Postgres
 
 El pod de Postgres daba error de permisos en `/var/lib/pgsql/data/userdata`.  
 Se resolvió con un parche de `securityContext`:
@@ -51,7 +84,7 @@ kubectl delete pod awx-postgres-15-0 -n awx
 
 ---
 
-## 4. Recursos creados por el operador
+## 5. Recursos creados por el operador
 
 - Base de datos (`awx-postgres-13-0`)
 - Servicios (`awx-service`, `awx-postgres-13`, etc.)
@@ -61,7 +94,7 @@ El pod `awx-web` estaba en **Pending** por falta de memoria, pero el autoscaler 
 
 ---
 
-## 5. Obtener contraseña del admin
+## 6. Obtener contraseña del admin
 
 ```bash
 kubectl get secret awx-admin-password -n awx -o jsonpath="{.data.password}" | base64 --decode; echo
