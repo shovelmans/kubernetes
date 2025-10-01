@@ -1,0 +1,37 @@
+postgresql:
+  enabled: true
+  auth:
+    enablePostgresUser: true
+    username: phoenix_user
+    password: phoenixPass123
+    postgresPassword: rootPass123
+    database: phoenix
+  primary:
+    persistence:
+      enabled: true
+      size: 10Gi
+      storageClass: do-block-storage   # ⚡ StorageClass de DigitalOcean
+
+phoenix:
+  image:
+    repository: arizephoenix/phoenix
+    tag: "3.0.0"
+    pullPolicy: IfNotPresent
+
+  replicaCount: 1
+
+  service:
+    type: ClusterIP   # acceso interno, lo puedes cambiar a NodePort si quieres acceso externo sin ingress
+    port: 6006
+
+  persistence:
+    enabled: true
+    size: 30Gi
+    storageClass: do-block-storage     # ⚡ StorageClass de DigitalOcean
+
+  config:
+    database:
+      host: phoenix-postgres
+      database: phoenix
+      user: phoenix_user
+      password: phoenixPass123

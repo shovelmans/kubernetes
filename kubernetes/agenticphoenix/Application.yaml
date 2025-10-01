@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: arize-phoenix
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://tu-repo.git'   # 👉 tu repo con el chart
+    targetRevision: main             # rama
+    path: charts/arize-phoenix       # ruta al chart dentro del repo
+    helm:
+      valueFiles:
+        - values.yaml                # 👉 tu values.yaml para DigitalOcean
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: phoenix               # namespace donde se desplegará Phoenix + Postgres
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

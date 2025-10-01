@@ -1,0 +1,12 @@
+apiVersion: awx.ansible.com/v1beta1
+kind: AWX
+metadata:
+  name: awx
+  namespace: awx
+spec:
+  service_type: LoadBalancer
+  ingress_type: none
+  postgres_storage_class: do-block-storage
+  postgres_storage_requirements:
+    requests:
+      storage: 10Gi
