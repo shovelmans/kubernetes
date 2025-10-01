@@ -11,7 +11,8 @@ spec:
     path: kubernetes/agenticphoenix/phoenix-helm
     helm:
       valueFiles:
-        - values.yaml   # el que está dentro de phoenix-helm
+        - values.yaml         # el original dentro del chart
+        - ../my-values.yaml   # tu override (ruta relativa desde phoenix-helm)
   destination:
     server: https://kubernetes.default.svc
     namespace: agentic

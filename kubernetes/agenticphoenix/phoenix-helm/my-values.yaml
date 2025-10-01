@@ -1,0 +1,28 @@
+postgresql:
+  enabled: true
+  auth:
+    username: phoenix_user
+    password: phoenixPass123
+    postgresPassword: rootPass123
+    database: phoenix
+  primary:
+    persistence:
+      enabled: true
+      size: 10Gi
+      storageClass: do-block-storage
+
+phoenix:
+  replicaCount: 1
+  service:
+    type: ClusterIP
+    port: 6006
+  persistence:
+    enabled: true
+    size: 30Gi
+    storageClass: do-block-storage
+  config:
+    database:
+      host: phoenix-postgres
+      database: phoenix
+      user: phoenix_user
+      password: phoenixPass123
