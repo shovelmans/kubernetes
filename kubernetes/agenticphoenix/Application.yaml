@@ -1,20 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: arize-phoenix
+  name: agentic-phoenix
   namespace: argocd
 spec:
   project: default
   source:
-    repoURL: 'https://tu-repo.git'   # 👉 tu repo con el chart
-    targetRevision: main             # rama
-    path: charts/arize-phoenix       # ruta al chart dentro del repo
+    repoURL: 'https://github.com/shovelmans/kubernetes.git'  # tu repo
+    targetRevision: main
+    path: kubernetes/agenticphoenix
     helm:
       valueFiles:
-        - values.yaml                # 👉 tu values.yaml para DigitalOcean
+        - values.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: phoenix               # namespace donde se desplegará Phoenix + Postgres
+    namespace: agentic
   syncPolicy:
     automated:
       prune: true
