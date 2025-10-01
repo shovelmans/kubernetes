@@ -3,14 +3,14 @@ postgresql:
   auth:
     enablePostgresUser: true
     username: phoenix_user
-    password: phoenixPass123
+    password: phoenixPass123   # ⚠️ cámbialo por uno seguro
     postgresPassword: rootPass123
     database: phoenix
   primary:
     persistence:
       enabled: true
       size: 10Gi
-      storageClass: do-block-storage   # ⚡ StorageClass de DigitalOcean
+      storageClass: do-block-storage   # StorageClass de DigitalOcean
 
 phoenix:
   image:
@@ -21,17 +21,17 @@ phoenix:
   replicaCount: 1
 
   service:
-    type: ClusterIP   # acceso interno, lo puedes cambiar a NodePort si quieres acceso externo sin ingress
+    type: ClusterIP   # interno, puedes cambiar a NodePort si lo quieres expuesto
     port: 6006
 
   persistence:
     enabled: true
     size: 30Gi
-    storageClass: do-block-storage     # ⚡ StorageClass de DigitalOcean
+    storageClass: do-block-storage
 
   config:
     database:
-      host: phoenix-postgres
+      host: phoenix-postgres    # apunta al release de Postgres
       database: phoenix
       user: phoenix_user
       password: phoenixPass123

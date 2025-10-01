@@ -6,12 +6,12 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/shovelmans/kubernetes.git'  # tu repo
+    repoURL: 'https://github.com/shovelmans/kubernetes.git'
     targetRevision: main
-    path: kubernetes/agenticphoenix
+    path: kubernetes/agenticphoenix/phoenix-helm
     helm:
       valueFiles:
-        - values.yaml
+        - values.yaml   # el que está dentro de phoenix-helm
   destination:
     server: https://kubernetes.default.svc
     namespace: agentic
